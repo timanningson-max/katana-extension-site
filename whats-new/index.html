@@ -146,27 +146,6 @@
       font-weight: 700;
     }
     .change-list strong { font-weight: 700; }
-    .change-list code {
-      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 11.5px;
-      background: #f4f5f7;
-      padding: 1px 5px;
-      border-radius: 3px;
-      color: #344563;
-    }
-
-    /* ── Known issue notice ── */
-    .known-issue {
-      background: #fffbeb;
-      border: 1.5px solid #fde68a;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-top: 18px;
-      font-size: 13px;
-      color: #78350f;
-      line-height: 1.65;
-    }
-    .known-issue strong { display: block; margin-bottom: 4px; font-weight: 700; }
 
     /* ── Footer ── */
     .site-footer {
@@ -194,7 +173,7 @@
 
     <p class="page-eyebrow">Release Notes</p>
     <h1 class="page-title">What's New</h1>
-    <p class="page-subtitle">Release history for the Katana Order Generator Chrome extension — an interim replacement for Katana AI (KAI) while native functionality is rebuilt.</p>
+    <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <!-- ── v1.2.1 ── -->
     <div class="version-block">
@@ -206,14 +185,11 @@
       <p class="change-label">Bug Fixes</p>
       <ul class="change-list">
         <li>
-          <strong>Qty / price now extracted from the correct table row</strong> — the split-SKU
-          scanner previously used a flat context window around the matched SKU position, causing
-          two systematic errors: (1) a 30-character pre-window bled the <em>previous</em> row's
-          unit price in, shifting all prices down by one row; (2) pack-count numbers embedded in
-          product descriptions (e.g. <code>(box/100 pcs)</code>) were matched as the order
-          quantity before the actual QTY column value. The scanner now looks up the matching
-          Y-grouped visual row and extracts qty/price from there — the same clean, isolated row
-          that the line-by-line parser uses.
+          <strong>PDF prices and quantities are now read correctly.</strong> In some PDFs,
+          products were being assigned the wrong unit price — prices appeared to shift down
+          by one row in the order. Similarly, pack-size numbers in product descriptions
+          (e.g. "box of 100") were sometimes being picked up as the order quantity. Both
+          issues are fixed.
         </li>
       </ul>
     </div>
@@ -227,21 +203,15 @@
       <p class="change-label">Improvements</p>
       <ul class="change-list">
         <li>
-          <strong>PDF table extraction rebuilt</strong> — pdf.js text items are now grouped by
-          Y coordinate into proper visual rows before parsing (previously all items were joined
-          into one flat blob). Each table row becomes its own line, so quantity and price are
-          always extracted from the correct row — not contaminated by numbers from other rows
-          or product descriptions.
+          <strong>More reliable PDF reading.</strong> The way the extension reads PDF purchase
+          orders has been rebuilt. It now understands table structure properly, so each product
+          line is read as a unit — the right quantity and price stay attached to the right
+          product, regardless of how the PDF was created.
         </li>
         <li>
-          <strong>Split-SKU scan preserved</strong> — the whitespace-tolerant hyphenated SKU
-          scan continues to run on the original flat content stream, so SKU fragments that are
-          adjacent in column-major PDFs (e.g. <code>ALU-3MM- 1020</code>) are still found.
-        </li>
-        <li>
-          <strong>False positive removed</strong> — removed a loose SKU-match fallback that
-          produced incorrect matches (e.g. <code>BC-Bulk</code> matching unrelated text).
-          Tight matching only.
+          <strong>Fewer incorrect product matches.</strong> A matching shortcut that was
+          occasionally linking products to the wrong lines in a PDF has been removed.
+          Matches are now held to a higher standard.
         </li>
       </ul>
     </div>
@@ -255,37 +225,20 @@
       <p class="change-label">Improvements</p>
       <ul class="change-list">
         <li>
-          <strong>PDF line item matching</strong> — SKUs that wrap across lines in PDF tables
-          (e.g. <code>ALU-3MM-1020</code> split as <code>ALU-3MM- 1020</code>) are now found
-          correctly using a whitespace-tolerant scan. Unit prices and quantities are extracted
-          from the surrounding context automatically.
+          <strong>Better customer matching.</strong> The extension now searches company names
+          and contact names in Katana — not just the display name — so customers are found
+          more reliably when the PO uses a slightly different form of their name.
         </li>
         <li>
-          <strong>Customer matching</strong> — now checks the customer's company name and
-          individual first/last name fields in addition to the Katana display name, so
-          company-only records are matched correctly.
+          <strong>Fewer false matches.</strong> Product matching is now more strict, reducing
+          cases where a product name or SKU accidentally matched unrelated text in an email
+          or PO document.
         </li>
         <li>
-          <strong>SKU false positives reduced</strong> — SKU matching is now case-sensitive
-          and requires a minimum of 3 characters, preventing short or common-word SKUs from
-          matching prose text in emails.
-        </li>
-        <li>
-          <strong>Order item false positives reduced</strong> — word-based (low confidence)
-          matching now requires at least 3 significant words to match, preventing short product
-          names from triggering on natural language sentences.
-        </li>
-        <li>
-          <strong>PO reference formats</strong> — added support for
-          <code>Reference Number: 1234</code> and <code>reference number; 1234</code> patterns.
+          <strong>More PO reference number formats recognised.</strong> Common variations in
+          how customers write their reference numbers are now picked up automatically.
         </li>
       </ul>
-      <div class="known-issue">
-        <strong>Known issue</strong>
-        Products in the Katana catalog with very short or common-word names (e.g. a product
-        literally named "price" or "Table") may still produce false positive matches. This is
-        a catalog quality issue — removing or renaming those products resolves it.
-      </div>
     </div>
 
     <!-- ── v1.0.0 ── -->
@@ -293,21 +246,21 @@
       <div class="version-header">
         <span class="version-number">v1.0.0</span>
         <span class="version-date">5 March 2026</span>
-        <span class="version-badge badge-initial">Initial Release</span>
+        <span class="version-badge badge-initial">First Release</span>
       </div>
       <ul class="change-list">
-        <li>Paste text or upload a PDF to extract customer, PO reference, delivery date, and line items</li>
-        <li>Three-tier product matching: by SKU (high confidence), product name (medium), keywords (low)</li>
-        <li>Editable review screen before submitting to Katana</li>
-        <li>Auto-generated order number in <code>SO-YYYYMMDD-XXXX</code> format</li>
-        <li>Manual item search and add for anything the parser misses</li>
+        <li>Paste a customer email or upload a PDF to automatically extract order details</li>
+        <li>Matches products from your Katana catalog by SKU, product name, or keywords</li>
+        <li>Review and edit everything before the order is created — nothing is sent to Katana until you confirm</li>
+        <li>Manually search and add any products the automatic matching misses</li>
+        <li>Creates the sales order directly in Katana with one click</li>
       </ul>
     </div>
 
   </div><!-- /page -->
 
   <div class="site-footer">
-    Katana Order Generator · <a href="../how-to/">How To →</a>
+    Katana Order Generator · <a href="../how-to/">How To</a>
   </div>
 
 </body>
