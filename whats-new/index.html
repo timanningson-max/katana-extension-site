@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What's New — Katana Order Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f5f7;
+      color: #172b4d;
+      min-height: 100vh;
+    }
+
+    /* ── Site header ── */
+    .site-header {
+      background: #12192b;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .site-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .site-logo span { color: #E8472A; }
+    .site-nav {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: color 0.12s, background 0.12s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { color: #fff; }
+
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #E8472A;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #12192b;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #6b778c;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    /* ── Version blocks ── */
+    .version-block {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .version-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid #f0f1f3;
+    }
+    .version-number {
+      font-size: 19px;
+      font-weight: 800;
+      color: #12192b;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+    .version-date {
+      font-size: 12px;
+      color: #8993a4;
+    }
+    .version-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+    .badge-latest  { background: #e3fcef; color: #006644; }
+    .badge-initial { background: #e6f0ff; color: #0052cc; }
+
+    /* ── Change sections ── */
+    .change-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8993a4;
+      margin-bottom: 10px;
+      margin-top: 18px;
+    }
+    .change-label:first-of-type { margin-top: 0; }
+
+    .change-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .change-list li {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #172b4d;
+      padding-left: 18px;
+      position: relative;
+    }
+    .change-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #E8472A;
+      font-weight: 700;
+    }
+    .change-list strong { font-weight: 700; }
+    .change-list code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 11.5px;
+      background: #f4f5f7;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #344563;
+    }
+
+    /* ── Known issue notice ── */
+    .known-issue {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: 13px;
+      color: #78350f;
+      line-height: 1.65;
+    }
+    .known-issue strong { display: block; margin-bottom: 4px; font-weight: 700; }
+
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      font-size: 12px;
+      color: #adb5bd;
+      padding: 32px 0;
+      border-top: 1.5px solid #e5e7eb;
+      margin-top: 20px;
+    }
+    .site-footer a { color: #6b778c; }
+  </style>
+</head>
+<body>
+
+  <div class="site-header">
+    <a class="site-logo" href="../">Katana Order <span>Generator</span></a>
+    <nav class="site-nav">
+      <a class="nav-link active" href="./">What's New</a>
+      <a class="nav-link" href="../how-to/">How To</a>
+    </nav>
+  </div>
+
+  <div class="page">
+
+    <p class="page-eyebrow">Release Notes</p>
+    <h1 class="page-title">What's New</h1>
+    <p class="page-subtitle">Release history for the Katana Order Generator Chrome extension — an interim replacement for Katana AI (KAI) while native functionality is rebuilt.</p>
+
+    <!-- ── v1.2.1 ── -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-number">v1.2.1</span>
+        <span class="version-date">7 March 2026</span>
+        <span class="version-badge badge-latest">Latest</span>
+      </div>
+      <p class="change-label">Bug Fixes</p>
+      <ul class="change-list">
+        <li>
+          <strong>Qty / price now extracted from the correct table row</strong> — the split-SKU
+          scanner previously used a flat context window around the matched SKU position, causing
+          two systematic errors: (1) a 30-character pre-window bled the <em>previous</em> row's
+          unit price in, shifting all prices down by one row; (2) pack-count numbers embedded in
+          product descriptions (e.g. <code>(box/100 pcs)</code>) were matched as the order
+          quantity before the actual QTY column value. The scanner now looks up the matching
+          Y-grouped visual row and extracts qty/price from there — the same clean, isolated row
+          that the line-by-line parser uses.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── v1.2.0 ── -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-number">v1.2.0</span>
+        <span class="version-date">6 March 2026</span>
+      </div>
+      <p class="change-label">Improvements</p>
+      <ul class="change-list">
+        <li>
+          <strong>PDF table extraction rebuilt</strong> — pdf.js text items are now grouped by
+          Y coordinate into proper visual rows before parsing (previously all items were joined
+          into one flat blob). Each table row becomes its own line, so quantity and price are
+          always extracted from the correct row — not contaminated by numbers from other rows
+          or product descriptions.
+        </li>
+        <li>
+          <strong>Split-SKU scan preserved</strong> — the whitespace-tolerant hyphenated SKU
+          scan continues to run on the original flat content stream, so SKU fragments that are
+          adjacent in column-major PDFs (e.g. <code>ALU-3MM- 1020</code>) are still found.
+        </li>
+        <li>
+          <strong>False positive removed</strong> — removed a loose SKU-match fallback that
+          produced incorrect matches (e.g. <code>BC-Bulk</code> matching unrelated text).
+          Tight matching only.
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── v1.1.0 ── -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-number">v1.1.0</span>
+        <span class="version-date">6 March 2026</span>
+      </div>
+      <p class="change-label">Improvements</p>
+      <ul class="change-list">
+        <li>
+          <strong>PDF line item matching</strong> — SKUs that wrap across lines in PDF tables
+          (e.g. <code>ALU-3MM-1020</code> split as <code>ALU-3MM- 1020</code>) are now found
+          correctly using a whitespace-tolerant scan. Unit prices and quantities are extracted
+          from the surrounding context automatically.
+        </li>
+        <li>
+          <strong>Customer matching</strong> — now checks the customer's company name and
+          individual first/last name fields in addition to the Katana display name, so
+          company-only records are matched correctly.
+        </li>
+        <li>
+          <strong>SKU false positives reduced</strong> — SKU matching is now case-sensitive
+          and requires a minimum of 3 characters, preventing short or common-word SKUs from
+          matching prose text in emails.
+        </li>
+        <li>
+          <strong>Order item false positives reduced</strong> — word-based (low confidence)
+          matching now requires at least 3 significant words to match, preventing short product
+          names from triggering on natural language sentences.
+        </li>
+        <li>
+          <strong>PO reference formats</strong> — added support for
+          <code>Reference Number: 1234</code> and <code>reference number; 1234</code> patterns.
+        </li>
+      </ul>
+      <div class="known-issue">
+        <strong>Known issue</strong>
+        Products in the Katana catalog with very short or common-word names (e.g. a product
+        literally named "price" or "Table") may still produce false positive matches. This is
+        a catalog quality issue — removing or renaming those products resolves it.
+      </div>
+    </div>
+
+    <!-- ── v1.0.0 ── -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-number">v1.0.0</span>
+        <span class="version-date">5 March 2026</span>
+        <span class="version-badge badge-initial">Initial Release</span>
+      </div>
+      <ul class="change-list">
+        <li>Paste text or upload a PDF to extract customer, PO reference, delivery date, and line items</li>
+        <li>Three-tier product matching: by SKU (high confidence), product name (medium), keywords (low)</li>
+        <li>Editable review screen before submitting to Katana</li>
+        <li>Auto-generated order number in <code>SO-YYYYMMDD-XXXX</code> format</li>
+        <li>Manual item search and add for anything the parser misses</li>
+      </ul>
+    </div>
+
+  </div><!-- /page -->
+
+  <div class="site-footer">
+    Katana Order Generator · <a href="../how-to/">How To →</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How To — Katana Order Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f5f7;
+      color: #172b4d;
+      min-height: 100vh;
+    }
+
+    /* ── Site header ── */
+    .site-header {
+      background: #12192b;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .site-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .site-logo span { color: #E8472A; }
+    .site-nav {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: color 0.12s, background 0.12s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { color: #fff; }
+
+    /* ── Page ── */
+    .page {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #E8472A;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #12192b;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #6b778c;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+
+    /* ── Section heading ── */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #12192b;
+      margin: 40px 0 16px;
+      padding-top: 40px;
+      border-top: 1.5px solid #e5e7eb;
+    }
+    .section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      padding: 28px 32px;
+      margin-bottom: 16px;
+    }
+
+    /* ── Steps ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #f0f1f3;
+    }
+    .step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step:first-child { padding-top: 0; }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E8472A;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-body { flex: 1; }
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #172b4d;
+      margin-bottom: 5px;
+    }
+    .step-desc {
+      font-size: 13.5px;
+      color: #344563;
+      line-height: 1.65;
+    }
+    .step-desc code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 11.5px;
+      background: #f4f5f7;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #344563;
+    }
+    .step-desc strong { font-weight: 700; }
+
+    /* ── Info boxes ── */
+    .info-box {
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.65;
+      margin-top: 14px;
+    }
+    .info-box strong { font-weight: 700; display: block; margin-bottom: 3px; }
+    .info-tip  { background: #e6f0ff; color: #0052cc; }
+    .info-warn { background: #fffbeb; border: 1.5px solid #fde68a; color: #78350f; }
+
+    /* ── Confidence table ── */
+    .conf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .conf-table th {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8993a4;
+      padding: 0 10px 8px 0;
+      text-align: left;
+      border-bottom: 1.5px solid #f0f1f3;
+    }
+    .conf-table td {
+      padding: 10px 10px 10px 0;
+      border-bottom: 1px solid #f7f8fa;
+      vertical-align: top;
+      color: #344563;
+      line-height: 1.5;
+    }
+    .conf-table tr:last-child td { border-bottom: none; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .badge-sku    { background: #e3fcef; color: #006644; }
+    .badge-name   { background: #fff7e6; color: #974f0c; }
+    .badge-words  { background: #f3e8ff; color: #6b21a8; }
+    .badge-manual { background: #e6f0ff; color: #0052cc; }
+
+    /* ── Inline list ── */
+    .plain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .plain-list li {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #344563;
+      padding-left: 18px;
+      position: relative;
+    }
+    .plain-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #E8472A;
+      font-size: 12px;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      font-size: 12px;
+      color: #adb5bd;
+      padding: 32px 0;
+      border-top: 1.5px solid #e5e7eb;
+      margin-top: 20px;
+    }
+    .site-footer a { color: #6b778c; }
+  </style>
+</head>
+<body>
+
+  <div class="site-header">
+    <a class="site-logo" href="../">Katana Order <span>Generator</span></a>
+    <nav class="site-nav">
+      <a class="nav-link" href="../whats-new/">What's New</a>
+      <a class="nav-link active" href="./">How To</a>
+    </nav>
+  </div>
+
+  <div class="page">
+
+    <p class="page-eyebrow">Documentation</p>
+    <h1 class="page-title">How To Use</h1>
+    <p class="page-subtitle">
+      The Katana Order Generator reads a customer Purchase Order — from a pasted email or an uploaded PDF — and creates a draft sales order in Katana for your review before submitting.
+    </p>
+
+    <!-- ── Setup ── -->
+    <h2 class="section-title">1 · Setup</h2>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Install the extension</div>
+            <div class="step-desc">
+              Load the extension folder in Chrome via <strong>chrome://extensions → Load unpacked</strong>.
+              Enable Developer mode first if it is not already on.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Add your Katana API key</div>
+            <div class="step-desc">
+              Click the extension icon, then click <strong>Settings ↗</strong> (or right-click the
+              icon → Options). Paste your Katana API key and save. The extension reads your live
+              product catalog — customers, variants, and locations — on every open.
+              <div class="info-tip info-box">
+                <strong>Where to find your API key</strong>
+                In Katana: Settings → Integrations → API → Generate API key.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Open the side panel</div>
+            <div class="step-desc">
+              Click the extension icon in the Chrome toolbar. The side panel opens alongside
+              your browser window. You'll see a status dot in the header — green means the
+              catalog loaded successfully.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Input methods ── -->
+    <h2 class="section-title">2 · Reading a Purchase Order</h2>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">A</div>
+          <div class="step-body">
+            <div class="step-title">Paste Text tab — emails and plain-text POs</div>
+            <div class="step-desc">
+              Copy the body of the customer's email or PO and paste it into the text area.
+              Click <strong>Read Order</strong>. The parser will scan for customer name, SKUs,
+              product names, quantities, PO reference number, and delivery date.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">B</div>
+          <div class="step-body">
+            <div class="step-title">Upload PDF tab — PDF purchase orders</div>
+            <div class="step-desc">
+              Switch to the <strong>Upload PDF</strong> tab. Drag your PDF onto the drop zone or
+              click to browse. Text is extracted automatically from all pages using Y-coordinate
+              grouping, so each table row is parsed in isolation — quantities and prices are
+              pulled from the correct row regardless of how the PDF was encoded.
+              <div class="info-warn info-box">
+                <strong>Scanned PDFs</strong>
+                The extension reads text embedded in the PDF. Image-only (scanned) PDFs will not
+                extract any text. The customer must provide a digital/native PDF, not a scan.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Review screen ── -->
+    <h2 class="section-title">3 · Review &amp; Confirm</h2>
+    <div class="card">
+      <p style="font-size:13.5px;color:#344563;line-height:1.65;margin-bottom:20px;">
+        After parsing, a review screen shows the extracted data. Check every field before creating
+        the order — the parser is smart but not perfect.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Check the Customer field</div>
+            <div class="step-desc">
+              The parser tries to match the customer name in the text against your Katana
+              customer list. If it picks the wrong one (or none), use the dropdown to select
+              the correct customer manually.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Verify Order No., PO Ref, and Delivery Date</div>
+            <div class="step-desc">
+              The Order No. is auto-generated in <code>SO-YYYYMMDD-XXXX</code> format — you
+              can edit it. The PO reference and delivery date are extracted from the document
+              if present; fill them in manually if not.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Review the line items and confidence badges</div>
+            <div class="step-desc">
+              Each matched item shows a confidence badge indicating how it was found:
+              <div style="margin-top:14px">
+                <table class="conf-table">
+                  <thead>
+                    <tr>
+                      <th style="width:80px">Badge</th>
+                      <th>What it means</th>
+                      <th>Action needed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge badge-sku">SKU</span></td>
+                      <td>Matched by exact SKU code</td>
+                      <td>Check qty &amp; price — usually correct</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-name">Name</span></td>
+                      <td>Matched by product name</td>
+                      <td>Confirm it's the right product</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-words">Words</span></td>
+                      <td>Matched by keyword overlap — low confidence</td>
+                      <td>Verify carefully — may be wrong</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge badge-manual">Manual</span></td>
+                      <td>Added by you via search</td>
+                      <td>No action needed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="info-tip info-box" style="margin-top:14px">
+                <strong>Edit quantities and prices inline</strong>
+                Click any qty or price field in the table to edit it. Use the × button to remove
+                an item that was incorrectly matched.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Add missing items manually</div>
+            <div class="step-desc">
+              Use the search box below the table to find and add any product the parser missed.
+              Search by SKU or product name — select from the dropdown to add it with qty 1.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Create the order</div>
+            <div class="step-desc">
+              Click <strong>Create Order</strong>. The extension sends the order directly to
+              Katana via the API. A success screen confirms the order number. Click
+              <strong>Create Another</strong> to start fresh.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Tips ── -->
+    <h2 class="section-title">4 · Tips &amp; Known Limitations</h2>
+    <div class="card">
+      <ul class="plain-list">
+        <li>
+          <strong>PDFs work better than pasted text</strong> when the PO has a proper table
+          layout — the PDF parser preserves row structure precisely.
+        </li>
+        <li>
+          <strong>SKU matching is case-sensitive.</strong> If a customer writes a SKU in
+          lowercase and your catalog has it in uppercase, it won't match by SKU — but name
+          matching will still attempt it.
+        </li>
+        <li>
+          <strong>Very short or generic product names</strong> (e.g. a product literally
+          named "Box" or "Cable") can produce false word-level matches. Review
+          <span class="badge badge-words">Words</span> badges carefully.
+        </li>
+        <li>
+          <strong>Scanned / image PDFs</strong> contain no embedded text and cannot be parsed.
+          Ask the customer for a native digital PDF.
+        </li>
+        <li>
+          <strong>The catalog is fetched fresh each time</strong> the side panel opens, so new
+          customers or products added to Katana are available immediately — no need to reload
+          the extension.
+        </li>
+        <li>
+          <strong>Nothing is submitted to Katana until you click Create Order.</strong> You can
+          freely review, edit, and reset without any risk of creating a draft order.
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /page -->
+
+  <div class="site-footer">
+    Katana Order Generator · <a href="../whats-new/">What's New →</a>
+  </div>
+
+</body>
+</html>
