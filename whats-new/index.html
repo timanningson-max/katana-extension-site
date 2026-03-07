@@ -80,72 +80,62 @@
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-      padding: 28px 32px;
-      margin-bottom: 20px;
-    }
-    .version-header {
+      padding: 22px 28px;
+      margin-bottom: 14px;
       display: flex;
       align-items: baseline;
-      gap: 14px;
-      margin-bottom: 18px;
-      padding-bottom: 16px;
-      border-bottom: 1.5px solid #f0f1f3;
+      gap: 16px;
+      flex-wrap: wrap;
     }
     .version-number {
-      font-size: 19px;
+      font-size: 15px;
       font-weight: 800;
       color: #12192b;
       font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      flex-shrink: 0;
     }
     .version-date {
       font-size: 12px;
-      color: #8993a4;
+      color: #adb5bd;
+      flex-shrink: 0;
     }
     .version-badge {
-      margin-left: auto;
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       padding: 3px 10px;
       border-radius: 10px;
+      flex-shrink: 0;
     }
     .badge-latest  { background: #e3fcef; color: #006644; }
     .badge-initial { background: #e6f0ff; color: #0052cc; }
 
-    /* ── Change sections ── */
-    .change-label {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #8993a4;
-      margin-bottom: 10px;
-      margin-top: 18px;
+    .version-summary {
+      font-size: 14px;
+      color: #344563;
+      line-height: 1.6;
+      flex: 1;
+      min-width: 200px;
     }
-    .change-label:first-of-type { margin-top: 0; }
-
-    .change-list {
+    .version-summary ul {
       list-style: none;
+      margin-top: 6px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 4px;
     }
-    .change-list li {
-      font-size: 13.5px;
-      line-height: 1.65;
-      color: #172b4d;
-      padding-left: 18px;
+    .version-summary li {
+      padding-left: 14px;
       position: relative;
+      color: #344563;
     }
-    .change-list li::before {
+    .version-summary li::before {
       content: '•';
       position: absolute;
       left: 0;
       color: #E8472A;
-      font-weight: 700;
     }
-    .change-list strong { font-weight: 700; }
 
     /* ── Footer ── */
     .site-footer {
@@ -175,86 +165,37 @@
     <h1 class="page-title">What's New</h1>
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
-    <!-- ── v1.2.1 ── -->
     <div class="version-block">
-      <div class="version-header">
-        <span class="version-number">v1.2.1</span>
-        <span class="version-date">7 March 2026</span>
-        <span class="version-badge badge-latest">Latest</span>
-      </div>
-      <p class="change-label">Bug Fixes</p>
-      <ul class="change-list">
-        <li>
-          <strong>PDF prices and quantities are now read correctly.</strong> In some PDFs,
-          products were being assigned the wrong unit price — prices appeared to shift down
-          by one row in the order. Similarly, pack-size numbers in product descriptions
-          (e.g. "box of 100") were sometimes being picked up as the order quantity. Both
-          issues are fixed.
-        </li>
-      </ul>
+      <span class="version-number">v1.2.1</span>
+      <span class="version-date">7 Mar 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">Bug fixes — improved accuracy when reading prices and quantities from PDF purchase orders.</div>
     </div>
 
-    <!-- ── v1.2.0 ── -->
     <div class="version-block">
-      <div class="version-header">
-        <span class="version-number">v1.2.0</span>
-        <span class="version-date">6 March 2026</span>
-      </div>
-      <p class="change-label">Improvements</p>
-      <ul class="change-list">
-        <li>
-          <strong>More reliable PDF reading.</strong> The way the extension reads PDF purchase
-          orders has been rebuilt. It now understands table structure properly, so each product
-          line is read as a unit — the right quantity and price stay attached to the right
-          product, regardless of how the PDF was created.
-        </li>
-        <li>
-          <strong>Fewer incorrect product matches.</strong> A matching shortcut that was
-          occasionally linking products to the wrong lines in a PDF has been removed.
-          Matches are now held to a higher standard.
-        </li>
-      </ul>
+      <span class="version-number">v1.2.0</span>
+      <span class="version-date">6 Mar 2026</span>
+      <div class="version-summary">Bug fixes — further improvements to PDF parsing reliability.</div>
     </div>
 
-    <!-- ── v1.1.0 ── -->
     <div class="version-block">
-      <div class="version-header">
-        <span class="version-number">v1.1.0</span>
-        <span class="version-date">6 March 2026</span>
-      </div>
-      <p class="change-label">Improvements</p>
-      <ul class="change-list">
-        <li>
-          <strong>Better customer matching.</strong> The extension now searches company names
-          and contact names in Katana — not just the display name — so customers are found
-          more reliably when the PO uses a slightly different form of their name.
-        </li>
-        <li>
-          <strong>Fewer false matches.</strong> Product matching is now more strict, reducing
-          cases where a product name or SKU accidentally matched unrelated text in an email
-          or PO document.
-        </li>
-        <li>
-          <strong>More PO reference number formats recognised.</strong> Common variations in
-          how customers write their reference numbers are now picked up automatically.
-        </li>
-      </ul>
+      <span class="version-number">v1.1.0</span>
+      <span class="version-date">6 Mar 2026</span>
+      <div class="version-summary">Improvements to customer matching, product matching accuracy, and PO reference number detection.</div>
     </div>
 
-    <!-- ── v1.0.0 ── -->
     <div class="version-block">
-      <div class="version-header">
-        <span class="version-number">v1.0.0</span>
-        <span class="version-date">5 March 2026</span>
-        <span class="version-badge badge-initial">First Release</span>
+      <span class="version-number">v1.0.0</span>
+      <span class="version-date">5 Mar 2026</span>
+      <span class="version-badge badge-initial">First Release</span>
+      <div class="version-summary">
+        <ul>
+          <li>Paste a customer email or upload a PDF to create a sales order draft</li>
+          <li>Automatic matching of products, customer, PO reference, and delivery date</li>
+          <li>Review and edit everything before sending to Katana</li>
+          <li>Manually search and add any products the automatic matching misses</li>
+        </ul>
       </div>
-      <ul class="change-list">
-        <li>Paste a customer email or upload a PDF to automatically extract order details</li>
-        <li>Matches products from your Katana catalog by SKU, product name, or keywords</li>
-        <li>Review and edit everything before the order is created — nothing is sent to Katana until you confirm</li>
-        <li>Manually search and add any products the automatic matching misses</li>
-        <li>Creates the sales order directly in Katana with one click</li>
-      </ul>
     </div>
 
   </div><!-- /page -->
