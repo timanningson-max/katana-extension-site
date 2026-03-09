@@ -137,6 +137,17 @@
       color: #E8472A;
     }
 
+    /* ── Inline code ── */
+    .version-summary code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12px;
+      background: #f4f5f7;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: #172b4d;
+    }
+
     /* ── Footer ── */
     .site-footer {
       text-align: center;
@@ -166,9 +177,20 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
-      <span class="version-number">v1.2.2</span>
+      <span class="version-number">v1.2.3</span>
       <span class="version-date">9 Mar 2026</span>
       <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li>Bug fix — size variants written as <code>(SM)</code> / <code>(MD)</code> / <code>(LG)</code> are now correctly matched to SKUs that use single-letter codes (<code>S</code>, <code>M</code>, <code>L</code>)</li>
+          <li>New tip shown when items are matched by name rather than SKU, prompting users to include SKUs for more reliable results</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
+      <span class="version-number">v1.2.2</span>
+      <span class="version-date">9 Mar 2026</span>
       <div class="version-summary">Bug fixes — improved PO number detection, delivery date detection, and matching of products with multiple size or colour variants.</div>
     </div>
 
