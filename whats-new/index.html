@@ -177,12 +177,18 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
-      <span class="version-number">v1.2.3</span>
+      <span class="version-number">v1.2.4</span>
       <span class="version-date">9 Mar 2026</span>
       <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">Bug fix — size and colour variants (SM, MD, LG, etc.) now correctly matched when the customer writes a product name with a size in parentheses, regardless of how the SKU is formatted.</div>
+    </div>
+
+    <div class="version-block">
+      <span class="version-number">v1.2.3</span>
+      <span class="version-date">9 Mar 2026</span>
       <div class="version-summary">
         <ul>
-          <li>Bug fix — size variants written as <code>(SM)</code> / <code>(MD)</code> / <code>(LG)</code> are now correctly matched to SKUs that use single-letter codes (<code>S</code>, <code>M</code>, <code>L</code>)</li>
+          <li>Improved size variant disambiguation using SIZE_NORM lookup table</li>
           <li>New tip shown when items are matched by name rather than SKU, prompting users to include SKUs for more reliable results</li>
         </ul>
       </div>

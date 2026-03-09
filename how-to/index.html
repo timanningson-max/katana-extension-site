@@ -435,6 +435,15 @@
     <div class="card">
       <ul class="plain-list">
         <li>
+          <strong>Include SKUs for the most reliable matching.</strong> When a SKU from your
+          Katana catalog appears in the order text, the parser matches it exactly and shows a
+          green <span class="badge badge-sku">SKU</span> badge — no verification needed.
+          Without a SKU, the parser falls back to matching by product name, which works well
+          for most products but is less precise for items that have multiple variants
+          (sizes, colours, etc.). Any item matched by name or keyword shows an amber or purple
+          badge and should be checked before creating the order.
+        </li>
+        <li>
           <strong>PDFs work better than pasted text</strong> when the PO has a proper table
           layout — the PDF parser preserves row structure precisely.
         </li>
