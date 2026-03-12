@@ -177,9 +177,20 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
+      <span class="version-number">v1.2.8</span>
+      <span class="version-date">12 Mar 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li>Fixed a "Too Many Requests" error that could occur when opening the extension with a large product catalog — API calls are now spaced out to stay within Katana's rate limits</li>
+          <li>Product catalog is now cached locally for 30 minutes — the extension loads instantly on repeated opens, with a small ↺ button to force a refresh after adding new products in Katana</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
       <span class="version-number">v1.2.7</span>
       <span class="version-date">9 Mar 2026</span>
-      <span class="version-badge badge-latest">Latest</span>
       <div class="version-summary">
         <ul>
           <li>Quantities are now read correctly from purchase orders printed to PDF from a browser — previously these PDFs could cause all items to be imported with a quantity of 1</li>
