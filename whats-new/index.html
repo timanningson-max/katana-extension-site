@@ -177,9 +177,21 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
+      <span class="version-number">v1.2.9</span>
+      <span class="version-date">25 Mar 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li>All line items are now correctly extracted when a purchase order lists multiple products on a single line (e.g. <em>100 x Product-A 100 x Product-B</em>)</li>
+          <li>SKU matching is now case-insensitive — a customer writing <em>BSB-Rosemary</em> will match a catalog SKU of <em>BSB-ROSEMARY</em></li>
+          <li>Customers can now be matched from a sender email address — the domain of a <em>From:</em> address (e.g. <em>accounts@ablockaway.com</em>) is compared against company names in your Katana customer list</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
       <span class="version-number">v1.2.8</span>
       <span class="version-date">12 Mar 2026</span>
-      <span class="version-badge badge-latest">Latest</span>
       <div class="version-summary">
         <ul>
           <li>Fixed a "Too Many Requests" error that could occur when opening the extension with a large product catalog — API calls are now spaced out to stay within Katana's rate limits</li>
