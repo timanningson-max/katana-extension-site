@@ -177,9 +177,20 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
+      <span class="version-number">v1.3.0</span>
+      <span class="version-date">26 Mar 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li>Quantities are now read correctly from wholesale email tables that list price and quantity as plain numbers side-by-side with no labels (e.g. <em>Organic Walnuts 200g  5.13  15</em> now correctly gives qty 15)</li>
+          <li>Fixed false product matches on introductory or closing prose — if a product name happened to appear as a common word in the email body, it was incorrectly added as a line item; non-SKU matches on lines without any numbers are now ignored</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
       <span class="version-number">v1.2.9</span>
       <span class="version-date">25 Mar 2026</span>
-      <span class="version-badge badge-latest">Latest</span>
       <div class="version-summary">
         <ul>
           <li>All line items are now correctly extracted when a purchase order lists multiple products on a single line (e.g. <em>100 x Product-A 100 x Product-B</em>)</li>
