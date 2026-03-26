@@ -185,6 +185,9 @@
           <li>All line items are now correctly extracted when a purchase order lists multiple products on a single line (e.g. <em>100 x Product-A 100 x Product-B</em>)</li>
           <li>SKU matching is now case-insensitive — a customer writing <em>BSB-Rosemary</em> will match a catalog SKU of <em>BSB-ROSEMARY</em></li>
           <li>Customers can now be matched from a sender email address — the domain of a <em>From:</em> address (e.g. <em>accounts@ablockaway.com</em>) is compared against company names in your Katana customer list</li>
+          <li>SKUs containing hyphens now match correctly even when the customer's PO uses typographic dashes (– or —) instead of a regular hyphen</li>
+          <li>Quantities are now extracted correctly from UK and European wholesale POs that print prices as plain numbers with no currency symbol per line</li>
+          <li>Fixed a crash ("Invalid array length") that could occur when reading certain purchase orders</li>
         </ul>
       </div>
     </div>
