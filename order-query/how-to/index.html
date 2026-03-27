@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How To — Katana Order Query</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f4f5f7;
+      color: #172b4d;
+      min-height: 100vh;
+    }
+    .site-header {
+      background: #12192b;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .site-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .site-logo span { color: #E8472A; }
+    .site-nav {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: color 0.12s, background 0.12s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { color: #fff; }
+
+    .page {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #E8472A;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #12192b;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #6b778c;
+      margin-bottom: 48px;
+      line-height: 1.5;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #12192b;
+      margin: 40px 0 16px;
+      padding-top: 40px;
+      border-top: 1.5px solid #e5e7eb;
+    }
+    .section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      padding: 28px 32px;
+      margin-bottom: 16px;
+    }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #f0f1f3;
+    }
+    .step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step:first-child { padding-top: 0; }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E8472A;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-body { flex: 1; }
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #172b4d;
+      margin-bottom: 5px;
+    }
+    .step-desc {
+      font-size: 13.5px;
+      color: #344563;
+      line-height: 1.65;
+    }
+    .step-desc code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 11.5px;
+      background: #f4f5f7;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #344563;
+    }
+    .step-desc strong { font-weight: 700; }
+    .info-box {
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.65;
+      margin-top: 14px;
+    }
+    .info-box strong { font-weight: 700; display: block; margin-bottom: 3px; }
+    .info-tip  { background: #e6f0ff; color: #0052cc; }
+    .info-warn { background: #fffbeb; border: 1.5px solid #fde68a; color: #78350f; }
+    .plain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .plain-list li {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #344563;
+      padding-left: 18px;
+      position: relative;
+    }
+    .plain-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #E8472A;
+      font-size: 12px;
+    }
+    .site-footer {
+      text-align: center;
+      font-size: 12px;
+      color: #adb5bd;
+      padding: 32px 0;
+      border-top: 1.5px solid #e5e7eb;
+      margin-top: 20px;
+    }
+    .site-footer a { color: #6b778c; }
+  </style>
+</head>
+<body>
+
+  <div class="site-header">
+    <a class="site-logo" href="../../">Katana Order <span>Query</span></a>
+    <nav class="site-nav">
+      <a class="nav-link" href="../whats-new/">What's New</a>
+      <a class="nav-link active" href="./">How To</a>
+    </nav>
+  </div>
+
+  <div class="page">
+
+    <p class="page-eyebrow">Documentation</p>
+    <h1 class="page-title">How To Use</h1>
+    <p class="page-subtitle">
+      Katana Order Query lets you flexibly search, filter, and export your Katana sales orders and returns — including fields not available in the standard Katana interface.
+    </p>
+
+    <!-- ── Setup ── -->
+    <h2 class="section-title">1 · Setup</h2>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Install the extension</div>
+            <div class="step-desc">
+              Load the extension folder in Chrome via <strong>chrome://extensions → Load unpacked</strong>.
+              Enable Developer mode first if it is not already on.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Add your Katana API key</div>
+            <div class="step-desc">
+              Click the extension icon, then click <strong>⚙ Settings</strong>. Paste your Katana API key and save.
+              <div class="info-tip info-box">
+                <strong>Where to find your API key</strong>
+                In Katana: Settings → Integrations → API → Generate API key.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Open the tool</div>
+            <div class="step-desc">
+              Click the extension icon, then click <strong>📋 Sales Order Query</strong>. The tool opens in a new browser tab.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Running a Query ── -->
+    <h2 class="section-title">2 · Running a Query</h2>
+    <div class="card">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Choose a scope</div>
+            <div class="step-desc">
+              Use the scope buttons at the top of the sidebar to select what to query:
+              <strong>Open</strong> (active orders), <strong>All</strong> (everything), <strong>Closed</strong> (delivered), or <strong>Returns</strong> (sales returns).
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Select your display fields</div>
+            <div class="step-desc">
+              Tick the fields you want as columns. Fields are grouped into <strong>Order</strong>, <strong>Row</strong> (line items), and <strong>Fulfillment</strong> sections.
+              The 10 default fields are pre-selected — add or remove as needed.
+              <div class="info-tip info-box">
+                <strong>Tip</strong>
+                Selecting Row or Fulfillment fields triggers additional API calls per order to resolve that data. On large result sets this can take a moment.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Apply filters</div>
+            <div class="step-desc">
+              Narrow results using the filters below the field selector: customer name, order number, date ranges, status, currency, ship-from location, and more.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Click Run Query</div>
+            <div class="step-desc">
+              Results appear in the table. Orders with multiple line items show a summary row — click the <strong>▶</strong> arrow to expand individual line items.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Returns ── -->
+    <h2 class="section-title">3 · Querying Returns</h2>
+    <div class="card">
+      <p style="font-size:13.5px;color:#344563;line-height:1.65;margin-bottom:20px;">
+        Switch to the <strong>Returns</strong> scope to query sales return records. Returns have their own set of display fields — Return No, Customer, Status, Original SO, line item details, refund status, and more.
+      </p>
+      <ul class="plain-list">
+        <li>Filter by <strong>Return Date</strong> range and <strong>Return Status</strong> (Not Returned / Returned / Returned All)</li>
+        <li>Tick row-level fields (SKU, Item, Qty Returned, Return Reason, Batch #) to see line item detail — returns with multiple items show an expandable row</li>
+        <li>The <strong>Original SO</strong> column shows the source sales order number, not the internal ID</li>
+      </ul>
+    </div>
+
+    <!-- ── Export ── -->
+    <h2 class="section-title">4 · Exporting to CSV</h2>
+    <div class="card">
+      <p style="font-size:13.5px;color:#344563;line-height:1.65;">
+        Click <strong>Export CSV</strong> in the top-right after running a query. The export contains one row per line item (expanded), with all currently selected display fields as columns. Date fields are exported in ISO format for easy sorting in Excel or Google Sheets.
+      </p>
+    </div>
+
+    <!-- ── Tips ── -->
+    <h2 class="section-title">5 · Tips</h2>
+    <div class="card">
+      <ul class="plain-list">
+        <li>
+          <strong>API Panel and Debug Panel</strong> are available in the footer bar — toggle them on to see exactly which API calls were made and how many records were returned at each step. Useful for troubleshooting slow queries.
+        </li>
+        <li>
+          <strong>Column sorting</strong> — click any column header to sort. Click again to reverse. Date columns sort chronologically, not alphabetically.
+        </li>
+        <li>
+          <strong>Column resizing</strong> — drag the right edge of any column header to resize it.
+        </li>
+        <li>
+          <strong>Search across results</strong> — use the "Search across results" box at the bottom of the sidebar to filter the already-loaded results by any visible field value without re-running the query.
+        </li>
+        <li>
+          <strong>Results per page</strong> — increase this to 100 or 200 for large exports. The CSV always exports the full result set regardless of page size.
+        </li>
+        <li>
+          <strong>Rate limiting</strong> — Katana's API allows 60 requests per 60 seconds. The tool automatically retries if it hits the limit, but very large queries with many resolution fields may be slow. The API Panel shows if any 429 (rate limited) responses occurred.
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /page -->
+
+  <div class="site-footer">
+    Katana Order Query · <a href="../whats-new/">What's New →</a>
+  </div>
+
+</body>
+</html>
