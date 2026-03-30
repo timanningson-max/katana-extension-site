@@ -170,8 +170,8 @@
       <span class="version-badge badge-latest">Latest</span>
       <div class="version-summary">
         <ul>
-          <li><strong>Session-only API key storage</strong> — key is held in memory only and clears automatically when Chrome closes, preventing credential extraction</li>
-          <li><strong>Inline API key entry</strong> in the popup — paste your key and activate without going to Settings</li>
+          <li><strong>Tab-memory API key</strong> — key is never written to disk or storage; it lives only in the open tool tab and is gone the moment the tab is closed or refreshed</li>
+          <li><strong>Activation overlay</strong> — on opening the tool, an activation screen prompts for your API key; it validates against Katana before unlocking the tool</li>
           <li><strong>Return Status filter</strong> — filter returns by status (Not Returned / Returned / Returned All) directly in the Returns scope</li>
           <li><strong>SKU count</strong> on multi-line orders — shows <code>3 SKUs</code> instead of listing all SKUs in a single cell</li>
           <li><strong>Qty formatting</strong> fixed — quantities no longer display with excessive decimal places</li>
