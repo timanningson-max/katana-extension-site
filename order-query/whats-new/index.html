@@ -165,9 +165,26 @@
     <p class="page-subtitle">Updates to Katana Order Query — flexible sales order and returns reporting for Katana MRP.</p>
 
     <div class="version-block">
+      <span class="version-number">v1.2.0</span>
+      <span class="version-date">30 Mar 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li><strong>Session-only API key storage</strong> — key is held in memory only and clears automatically when Chrome closes, preventing credential extraction</li>
+          <li><strong>Inline API key entry</strong> in the popup — paste your key and activate without going to Settings</li>
+          <li><strong>Return Status filter</strong> — filter returns by status (Not Returned / Returned / Returned All) directly in the Returns scope</li>
+          <li><strong>SKU count</strong> on multi-line orders — shows <code>3 SKUs</code> instead of listing all SKUs in a single cell</li>
+          <li><strong>Qty formatting</strong> fixed — quantities no longer display with excessive decimal places</li>
+          <li><strong>Return status labels</strong> humanized — <code>RETURNED_ALL</code> now displays as <em>Returned</em>, <code>NOT_RETURNED</code> as <em>Not Returned</em></li>
+          <li>Footer bar no longer obscures the Run Query button in the sidebar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
       <span class="version-number">v1.1.0</span>
       <span class="version-date">27 Mar 2026</span>
-      <span class="version-badge badge-latest">Latest</span>
+      <span class="version-badge" style="background:#f3f4f6;color:#374151;">Previous</span>
       <div class="version-summary">
         <ul>
           <li>Added <strong>Returns</strong> scope — query sales return records with expandable line item detail (SKU, qty returned, return reason, batch #, restock location, refund status)</li>
