@@ -177,9 +177,20 @@
     <p class="page-subtitle">Updates to the Katana Order Generator — an interim replacement for Katana AI while native functionality is rebuilt.</p>
 
     <div class="version-block">
+      <span class="version-number">v1.3.3</span>
+      <span class="version-date">1 Apr 2026</span>
+      <span class="version-badge badge-latest">Latest</span>
+      <div class="version-summary">
+        <ul>
+          <li>Claude AI (claude-3-haiku) is now the default parser — it extracts customer, PO number, date, and line items directly from the document text, with the regex parser as a silent fallback</li>
+          <li>Catalog-aware matching: the catalog is pre-filtered to the most relevant entries before being sent to Claude, so it can return a precise SKU match even when customer order names differ from catalog names</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="version-block">
       <span class="version-number">v1.3.2</span>
       <span class="version-date">30 Mar 2026</span>
-      <span class="version-badge badge-latest">Latest</span>
       <div class="version-summary">
         <ul>
           <li>The API key is no longer stored anywhere — it now lives only in the memory of the open side-panel tab and is gone the moment the panel is closed or refreshed</li>
